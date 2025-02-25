@@ -1,18 +1,30 @@
 import React from "react";
+import { auth } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-type MessageProps = {
-  avatarSrc: string;
-  userName: string;
-  message: string;
-};
+interface MessageProps {
+  message: {
+    id: string;
+    uid: string;
+    avatar: string;
+    name: string;
+    text: string;
+  };
+}
 
-const Message: React.FC<MessageProps> = ({ avatarSrc, userName, message }) => {
+const Message: React.FC<MessageProps> = ({ message }) => {
+  const [user] = useAuthState(auth);
+
   return (
-    <div className={`chat-bubble`}>
-      <img className="chat-bubble__left" src={avatarSrc} alt="user avatar" />
+    <div className={`chat-bubble ${user && message.uid === user.uid ? "right" : ""}`}>
+      <img
+        className="chat-bubble__left"
+        src={message.avatar}
+        alt="user avatar"
+      />
       <div className="chat-bubble__right">
-        <p className="user-name">{userName}</p>
-        <p className="user-message">{message}</p>
+        <p className="user-name">{message.name}</p>
+        <p className="user-message">{message.text}</p>
       </div>
     </div>
   );

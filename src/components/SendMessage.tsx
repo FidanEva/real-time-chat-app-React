@@ -1,16 +1,33 @@
 import React, { FormEvent, useState } from "react";
+import { auth, db } from "../firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
-const SendMessage: React.FC = () => {
+const SendMessage: React.FC = async () => {
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (event: FormEvent) => {
+  const sendMessage = async (event:FormEvent) => {
     event.preventDefault();
-    console.log("Message sent:", message);
+    if (message.trim() === "") {
+      alert("Enter valid message");
+      return;
+    }
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      alert("User not authenticated");
+      return;
+    }
+    const { uid, displayName, photoURL } = currentUser;
+    await addDoc(collection(db, "messages"), {
+      text: message,
+      name: displayName,
+      avatar: photoURL,
+      createdAt: serverTimestamp(),
+      uid,
+    });
     setMessage("");
   };
-
   return (
-    <form className="send-message" onSubmit={handleSubmit}>
+    <form className="send-message" onSubmit={(event) => sendMessage(event)}>
       <label htmlFor="messageInput" hidden>
         Enter Message
       </label>
