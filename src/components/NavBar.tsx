@@ -1,22 +1,29 @@
-import React from "react";
-import GoogleSignin from "../img/btn_google_signin_dark_pressed_web.png";
+import React, { useEffect } from "react";
+import GoogleSignin from "../assets/btn_google_signin_dark_pressed_web.png";
 import { auth } from "../firebase.ts";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import { GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "firebase/auth";
 
 const NavBar: React.FC = () => {
   const [user] = useAuthState(auth);
-  
+
+  useEffect(() => {
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result) {
+          console.log("Sign in successful");
+        }
+      })
+      .catch((error) => {
+        console.error("Sign in failed", error);
+      });
+  }, []);
+
   const googleSignIn = (): void => {
     const provider = new GoogleAuthProvider();
-    signInWithRedirect(auth, provider).then(() => {
-      console.log("Sign in successful");
-    })
-    .catch((error) => {
-      console.error("Sign in failed", error);
-    });
+    signInWithRedirect(auth, provider);
   };
-  
+
   const signOut = (): void => {
     auth.signOut();
   };

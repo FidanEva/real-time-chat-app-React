@@ -21,7 +21,6 @@ const App: React.FC = () => {
     <div className="App">
       <NavBar />
       {!user ? <Welcome /> : <ChatBox />}
-      {/* {user && <div>User: {user.email}</div>} */}
     </div>
   );
 };
