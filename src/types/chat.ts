@@ -11,6 +11,5 @@ export interface ChatMessage {
   text: string;
   name: string | null;
   avatar: string | null;
-  createdAt: Date;
   uid: string;
 }

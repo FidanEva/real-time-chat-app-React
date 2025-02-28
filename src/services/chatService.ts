@@ -8,7 +8,7 @@ const MESSAGE_LIMIT = 50;
 export class ChatService {
   private static collectionRef = collection(db, MESSAGES_COLLECTION);
 
-  static async sendMessage(message: Omit<ChatMessage, 'createdAt'>): Promise<void> {
+  static async sendMessage(message: ChatMessage): Promise<void> {
     try {
       await addDoc(this.collectionRef, {
         ...message,
@@ -31,6 +31,7 @@ export class ChatService {
       const messages = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
+        createdAt: doc.data().createdAt.toDate(),
       })) as Message[];
 
       callback(messages.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime()));

@@ -1,8 +1,12 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, RefObject } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { ChatService } from "../services/chatService";
 
-const SendMessage: React.FC = () => {
+interface SendMessageProps {
+  scroll: RefObject<HTMLSpanElement | null>;
+}
+
+const SendMessage: React.FC<SendMessageProps> = ({ scroll }) => {
   const [message, setMessage] = useState("");
   const { user } = useAuth();
 
@@ -21,9 +25,11 @@ const SendMessage: React.FC = () => {
         uid: user.uid,
       });
       setMessage("");
+      if (scroll.current) {
+        scroll.current.scrollIntoView({ behavior: "smooth" });
+      }
     } catch (error) {
       console.error("Error sending message:", error);
-      // Handle error appropriately (e.g., show toast notification)
     }
   };
 

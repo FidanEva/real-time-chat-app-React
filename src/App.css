@@ -79,7 +79,11 @@ input {
   margin-right: auto;
 }
 
-/* chat component */
+.chat-box {
+  position: absolute;
+  width: 100%;
+}
+
 .messages-wrapper {
   padding: 30px;
   margin-bottom: 60px;

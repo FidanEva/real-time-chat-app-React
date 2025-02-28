@@ -34,16 +34,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       provider.addScope("profile");
       provider.addScope("email");
   
-      // Attempt sign-in with a popup
       await signInWithPopup(auth, provider);
     } catch (error: any) {
       console.error("Popup failed:", error);
   
-      // If the popup is blocked, fallback to redirect
       if (error.code === "auth/popup-blocked" || error.code === "auth/operation-not-supported-in-this-environment") {
         await signInWithRedirect(auth, provider);
       } else {
-        throw error; // Handle other errors as needed
+        throw error;
       }
     }
   };

@@ -1,18 +1,9 @@
 import React from "react";
 import { auth } from "../firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Message as MessageType } from "../types/chat";
 
-interface MessageProps {
-  message: {
-    id: string;
-    uid: string;
-    avatar: string;
-    name: string;
-    text: string;
-  };
-}
-
-const Message: React.FC<MessageProps> = ({ message }) => {
+const Message: React.FC<{ message: MessageType }> = ({ message }) => {
   const [user] = useAuthState(auth);
 
   return (
