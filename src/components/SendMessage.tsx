@@ -1,31 +1,32 @@
 import React, { FormEvent, useState } from "react";
-import { auth, db } from "../firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { useAuth } from "../hooks/useAuth";
+import { ChatService } from "../services/chatService";
 
-const SendMessage: React.FC = async () => {
+const SendMessage: React.FC = () => {
   const [message, setMessage] = useState("");
+  const { user } = useAuth();
 
-  const sendMessage = async (event:FormEvent) => {
+  const sendMessage = async (event: FormEvent) => {
     event.preventDefault();
-    if (message.trim() === "") {
-      alert("Enter valid message");
+    
+    if (!message.trim() || !user) {
       return;
     }
-    const currentUser = auth.currentUser;
-    if (!currentUser) {
-      alert("User not authenticated");
-      return;
+
+    try {
+      await ChatService.sendMessage({
+        text: message.trim(),
+        name: user.displayName,
+        avatar: user.photoURL,
+        uid: user.uid,
+      });
+      setMessage("");
+    } catch (error) {
+      console.error("Error sending message:", error);
+      // Handle error appropriately (e.g., show toast notification)
     }
-    const { uid, displayName, photoURL } = currentUser;
-    await addDoc(collection(db, "messages"), {
-      text: message,
-      name: displayName,
-      avatar: photoURL,
-      createdAt: serverTimestamp(),
-      uid,
-    });
-    setMessage("");
   };
+
   return (
     <form className="send-message" onSubmit={(event) => sendMessage(event)}>
       <label htmlFor="messageInput" hidden>

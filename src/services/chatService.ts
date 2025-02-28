@@ -1,19 +1,39 @@
-import { collection, addDoc, query, orderBy, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase";
+import { collection, addDoc, query, orderBy, onSnapshot, limit, Unsubscribe } from "firebase/firestore";
+import { db } from "../firebase/firestore";
+import { ChatMessage, Message } from "../types/chat";
 
-const chatCollectionRef = collection(db, "messages");
+const MESSAGES_COLLECTION = "messages";
+const MESSAGE_LIMIT = 50;
 
-export const sendMessage = async (text: string, userId: string) => {
-  await addDoc(chatCollectionRef, {
-    text,
-    userId,
-    timestamp: new Date(),
-  });
-};
+export class ChatService {
+  private static collectionRef = collection(db, MESSAGES_COLLECTION);
 
-export const subscribeToMessages = (callback: (messages: any[]) => void) => {
-  const q = query(chatCollectionRef, orderBy("timestamp"));
-  return onSnapshot(q, (snapshot) => {
-    callback(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-  });
-};
+  static async sendMessage(message: Omit<ChatMessage, 'createdAt'>): Promise<void> {
+    try {
+      await addDoc(this.collectionRef, {
+        ...message,
+        createdAt: new Date(),
+      });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      throw new Error('Failed to send message');
+    }
+  }
+
+  static subscribeToMessages(callback: (messages: Message[]) => void): Unsubscribe {
+    const q = query(
+      this.collectionRef,
+      orderBy("createdAt", "desc"),
+      limit(MESSAGE_LIMIT)
+    );
+
+    return onSnapshot(q, (snapshot) => {
+      const messages = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as Message[];
+
+      callback(messages.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime()));
+    });
+  }
+}

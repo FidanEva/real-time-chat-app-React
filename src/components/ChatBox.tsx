@@ -8,7 +8,7 @@ import {
   DocumentData,
   QuerySnapshot,
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../firebase/firestore";
 import Message from "./Message";
 import SendMessage from "./SendMessage";
 

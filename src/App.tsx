@@ -2,21 +2,21 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import ChatBox from "./components/ChatBox";
 import Welcome from "./components/Welcome";
-import { auth } from "./firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useAuth } from "./hooks/useAuth";
+
 const App: React.FC = () => {
-  const [user, loading, error] = useAuthState(auth);
+  const { user, loading, error } = useAuth();
 
   if (loading) {
-    console.log("🚀 ~ loading:", loading)
+    console.log("🚀 ~ loading:", loading);
     return <div>Loading...</div>;
   }
 
   if (error) {
-    console.log("🚀 ~ error:", error)
+    console.log("🚀 ~ error:", error);
     return <div>Error: {error.message}</div>;
   }
-  
+
   return (
     <div className="App">
       <NavBar />
