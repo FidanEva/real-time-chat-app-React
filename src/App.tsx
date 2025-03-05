@@ -1,27 +1,16 @@
+import { BrowserRouter } from 'react-router-dom';
+import { Router } from './routes/Router';
+import { AuthProvider } from './contexts/AuthContext';
+import { FC } from 'react';
 import "./App.css";
-import NavBar from "./components/NavBar";
-import ChatBox from "./components/ChatBox";
-import Welcome from "./components/Welcome";
-import { useAuth } from "./hooks/useAuth";
 
-const App: React.FC = () => {
-  const { user, loading, error } = useAuth();
-
-  if (loading) {
-    console.log("🚀 ~ loading:", loading);
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    console.log("🚀 ~ error:", error);
-    return <div>Error: {error.message}</div>;
-  }
-
+const App: FC = () => {
   return (
-    <div className="App">
-      <NavBar />
-      {!user ? <Welcome /> : <ChatBox />}
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <Router />
+      </AuthProvider>
+    </BrowserRouter>
   );
 };
 

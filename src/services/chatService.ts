@@ -1,9 +1,8 @@
-import { collection, addDoc, query, orderBy, onSnapshot, limit, Unsubscribe } from "firebase/firestore";
+import { collection, addDoc, query, orderBy, onSnapshot, Unsubscribe } from "firebase/firestore";
 import { db } from "../firebase/firestore";
 import { ChatMessage, Message } from "../types/chat";
 
 const MESSAGES_COLLECTION = "messages";
-const MESSAGE_LIMIT = 50;
 
 export class ChatService {
   private static collectionRef = collection(db, MESSAGES_COLLECTION);
@@ -24,7 +23,6 @@ export class ChatService {
     const q = query(
       this.collectionRef,
       orderBy("createdAt", "desc"),
-      limit(MESSAGE_LIMIT)
     );
 
     return onSnapshot(q, (snapshot) => {

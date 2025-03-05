@@ -25,9 +25,6 @@ const SendMessage: React.FC<SendMessageProps> = ({ scroll }) => {
         uid: user.uid,
       });
       setMessage("");
-      if (scroll.current) {
-        scroll.current.scrollIntoView({ behavior: "smooth" });
-      }
     } catch (error) {
       console.error("Error sending message:", error);
     }

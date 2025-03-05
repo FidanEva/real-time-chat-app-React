@@ -13,6 +13,7 @@ interface AuthContextProps {
   user: User | null;
   loading: boolean;
   error: Error | null;
+  isAuthenticated: boolean;
   signInWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -69,7 +70,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, error, signInWithGoogle, logout }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      loading, 
+      error, 
+      isAuthenticated: !!user, 
+      signInWithGoogle, 
+      logout 
+    }}>
       {children}
     </AuthContext.Provider>
   );

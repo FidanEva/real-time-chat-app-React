@@ -9,8 +9,8 @@ const ChatBox: React.FC = () => {
   const scroll = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
-    const subscribe = ChatService.subscribeToMessages(setMessages);
-    return () => subscribe();
+    const unSubscribe = ChatService.subscribeToMessages(setMessages);
+    return () => unSubscribe();
   }, []);
 
   useEffect(() => {
