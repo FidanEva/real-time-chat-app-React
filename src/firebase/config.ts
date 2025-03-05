@@ -1,13 +1,13 @@
 import { initializeApp, FirebaseApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDq4ZUgqczZZhRKwuifwga0eAc1tqCUz4o",
-  authDomain: "realtimechatappreact.firebaseapp.com",
-  projectId: "realtimechatappreact",
-  storageBucket: "realtimechatappreact.firebasestorage.app",
-  messagingSenderId: "1088750563861",
-  appId: "1:1088750563861:web:0683fc6b77c7e2bc4d541c",
-  measurementId: "G-HKMZ2XMV4L"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 const app: FirebaseApp = initializeApp(firebaseConfig);
