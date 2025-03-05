@@ -27,13 +27,15 @@ const GifSearch: React.FC<GifSearchProps> = ({ onGifSelect }) => {
 
   return (
     <div className='message-gif'>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search for GIFs"
-      />
-      <button className="gif-search" onClick={handleSearch}>Search</button>
+      <div className='gif-search-container'>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search for GIFs"
+          />
+        <button className="gif-search" onClick={handleSearch}>Search</button>
+      </div>
       <div className='gif-grid'>
         {gifs.map((gif) => (
           <img

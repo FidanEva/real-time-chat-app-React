@@ -19,7 +19,6 @@ const Message: React.FC<{ message: MessageType }> = ({ message }) => {
           <img 
             src={message.gifUrl} 
             alt="GIF" 
-            className="message-gif"
             style={{ maxWidth: '200px', borderRadius: '8px' }}
           />
         ) : (
