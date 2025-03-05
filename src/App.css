@@ -162,3 +162,54 @@ input {
   background-color: #7cc5d9;
   font-weight: 600;
 }
+
+.input-area {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust the gap between elements as needed */
+}
+
+.input-area button {
+  flex-shrink: 0; /* Prevent the button from shrinking */
+}
+
+.input-area input {
+  flex-grow: 1; /* Allow the input to grow and take available space */
+}
+
+.message-gif {
+  max-width: 200px;
+  border-radius: 8px;
+  margin: 5px 0;
+}
+
+.gif-search {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid red; 
+}
+
+.gif-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  padding: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.gif-item {
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.gif-item:hover {
+  transform: scale(1.05);
+}

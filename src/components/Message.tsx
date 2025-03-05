@@ -15,7 +15,16 @@ const Message: React.FC<{ message: MessageType }> = ({ message }) => {
       />
       <div className="chat-bubble__right">
         <p className="user-name">{message.name}</p>
-        <p className="user-message">{message.text}</p>
+        {message.type === 'gif' && message.gifUrl ? (
+          <img 
+            src={message.gifUrl} 
+            alt="GIF" 
+            className="message-gif"
+            style={{ maxWidth: '200px', borderRadius: '8px' }}
+          />
+        ) : (
+          <p className="user-message">{message.text}</p>
+        )}
       </div>
     </div>
   );
