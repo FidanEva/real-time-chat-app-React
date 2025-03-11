@@ -12,10 +12,6 @@ export class NavigationService {
     this.navigate(ROUTES.CHAT);
   }
 
-  static goToHome() {
-    this.navigate(ROUTES.HOME);
-  }
-
   static goToLogin() {
     this.navigate(ROUTES.AUTH.LOGIN);
   }

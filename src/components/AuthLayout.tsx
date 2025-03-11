@@ -1,11 +1,8 @@
 import { FC } from "react";
 import { ReactNode } from "react";
-import NavBar from "./NavBar";
-  
-export const MainLayout: FC<{children: ReactNode}> = ({ children }) => {
+export const AuthLayout: FC<{children: ReactNode}> = ({ children }) => {
     return (
-        <div className="main-layout">
-            <NavBar />
+        <div className="auth-layout">
             <main>{children}</main>
         {/* Add footer or other common elements */}
         </div>
