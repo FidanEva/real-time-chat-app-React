@@ -3,7 +3,7 @@ import { Gif } from '../types/giph';
 const API_KEY: string | undefined = import.meta.env.VITE_GIPHY_API_KEY;
 const BASE_URL = 'https://api.giphy.com/v1/gifs';
 
-export const searchGifs = async (query: string): Promise<Gif[]> => {
+export const searchGifs = async (query: string, page: number): Promise<Gif[]> => {
   if (!API_KEY) {
     console.error('GIPHY API key is missing');
     return [];
@@ -15,6 +15,7 @@ export const searchGifs = async (query: string): Promise<Gif[]> => {
         api_key: API_KEY,
         q: query,
         limit: 25,
+        offset: (page - 1) * 25,
       },
     });
     return response.data.data;
@@ -24,7 +25,7 @@ export const searchGifs = async (query: string): Promise<Gif[]> => {
   }
 };
 
-export const getTrendingGifs = async (): Promise<Gif[]> => {
+export const getTrendingGifs = async (page: number): Promise<Gif[]> => {
   if (!API_KEY) {
     console.error('GIPHY API key is missing');
     return [];
@@ -35,6 +36,7 @@ export const getTrendingGifs = async (): Promise<Gif[]> => {
       params: {
         api_key: API_KEY,
         limit: 25,
+        offset: (page - 1) * 25,
       },
     });
     return response.data.data;
