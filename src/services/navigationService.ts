@@ -7,7 +7,10 @@ export class NavigationService {
   static init(navigate: NavigateFunction) {
     this.navigate = navigate;
   }
-
+  static goToHome() {
+    this.navigate(ROUTES.HOME);
+  }
+  
   static goToChat() {
     this.navigate(ROUTES.CHAT);
   }

@@ -14,7 +14,7 @@ const NavBar: React.FC = () => {
   return (
     <nav className="nav-bar">
       <h1>React Chat</h1>
-      <div>
+      <div className="flex">
         <button onClick={handleLogout} className="sign-out" type="button">
           Sign Out
         </button>

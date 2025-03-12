@@ -8,6 +8,11 @@ const ChatBox = lazy(() => import('../components/ChatBox'));
 
 export const routesConfig = [
   {
+    path: ROUTES.HOME,
+    component: Welcome,
+    layout: AuthLayout,
+  },
+  {
     path: ROUTES.CHAT,
     component: ChatBox,
     protected: true,
