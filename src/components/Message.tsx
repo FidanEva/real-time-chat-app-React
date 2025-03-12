@@ -14,7 +14,8 @@ const Message: React.FC<{ message: MessageType }> = ({ message }) => {
         alt="user avatar"
       />
       <div className="chat-bubble__right">
-        <p className="user-name">{message.name}</p>
+        <p className={`user-name ${user && message.uid === user.uid ? "right" : "left"}`}>
+          {message.name}</p>
         {message.type === 'gif' && message.gifUrl ? (
           <img 
             src={message.gifUrl} 

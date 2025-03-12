@@ -10,6 +10,7 @@
   --bg-input: #E6EBF5;
   --text-primary: #1a1a1a;
   --text-secondary: #666666;
+  --text-tertiory: #7169EF;
   --border-color: #E6EBF5;
 }
 
@@ -19,6 +20,7 @@
   --bg-input: #36404A;
   --text-primary: #FFFFFF;
   --text-secondary: #E6EBF5;
+  --text-tertiory: #f9f9f9;
   --border-color: #36404A;
 }
 
@@ -74,12 +76,20 @@
          text-[var(--text-primary)] shadow-md;
 }
 
+.user-name.right{
+  @apply text-[var(--text-tertiory)];
+}
+
+.user-name.left {
+  @apply text-[var(--main)];
+}
+
 .chat-bubble__left {
   @apply w-12 h-12 rounded-full mr-4 border-2 border-[var(--bg-main)] shadow-lg;
 }
 
 .user-name {
-  @apply font-semibold mb-2 text-lg text-[var(--primary)];
+  @apply font-semibold mb-2 text-lg ;
 }
 
 .user-message {
@@ -104,4 +114,30 @@
 .send-message button {
   @apply p-3 px-5 ml-4 bg-[var(--primary)] text-white rounded-lg font-semibold 
          hover:bg-[var(--primary-hover)] transition duration-300;
+}
+
+.message-gif {
+  @apply fixed right-0 bottom-[60px] m-5 bg-[var(--bg-main)] w-2/5
+}
+
+.gif-search-container{
+  @apply flex p-5;
+}
+
+.gif-search{
+  @apply text-[var(--text-primary)] rounded-xl bg-[var(--bg-input)]
+    border-none focus:outline-none focus:ring-2 focus:ring-[var(--primary)] 
+    placeholder-[var(--text-secondary)];
+}
+
+.gif-grid{
+  @apply flex flex-wrap justify-center p-2 max-h-[300px] overflow-y-auto
+}
+
+.gif-item{
+  @apply m-2 flex-1 basis-auto max-w-[150px] aspect-square cursor-pointer rounded-lg overflow-hidden transition-transform duration-200 flex items-center justify-center;
+}
+
+.gif-item img{
+  @apply w-full h-full object-cover;
 }

@@ -3,11 +3,8 @@ import { searchGifs, getTrendingGifs } from '../services/giphyService';
 import { Gif } from '../types/giph';
 import { useEffect } from 'react';
 
-interface GifSearchProps {
-  onGifSelect: (gif: Gif) => void;
-}
 
-const GifSearch: React.FC<GifSearchProps> = ({ onGifSelect }) => {
+const GifSearch: React.FC<{onGifSelect: (gif: Gif) => void}> = ({ onGifSelect }) => {
   const [query, setQuery] = useState<string>('');
   const [gifs, setGifs] = useState<Gif[]>([]);
 
@@ -15,6 +12,16 @@ const GifSearch: React.FC<GifSearchProps> = ({ onGifSelect }) => {
     const results: Gif[] = await searchGifs(query);
     setGifs(results);
   };
+
+  useEffect(() => {
+    if (query.trim() !== '') {
+      handleSearch();
+    } else {
+      setGifs([]);
+      handleTrendingGifs();
+    }
+  }, [query]);
+
 
   const handleTrendingGifs = async () => {
     const results: Gif[] = await getTrendingGifs();
@@ -34,7 +41,6 @@ const GifSearch: React.FC<GifSearchProps> = ({ onGifSelect }) => {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for GIFs"
           />
-        <button className="gif-search" onClick={handleSearch}>Search</button>
       </div>
       <div className='gif-grid'>
         {gifs.map((gif) => (

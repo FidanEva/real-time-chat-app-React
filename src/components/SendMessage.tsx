@@ -4,11 +4,7 @@ import { ChatService } from "../services/chatService";
 import GifSearch from "./GifSearch";
 import useGifHandler from "../hooks/useGifHandler";
 
-interface SendMessageProps {
-  scroll: React.RefObject<HTMLSpanElement | null>;
-}
-
-const SendMessage: React.FC<SendMessageProps> = ({ scroll }) => {
+const SendMessage: React.FC<{scroll: React.RefObject<HTMLSpanElement | null>}> = ({ scroll }) => {
   const [message, setMessage] = useState("");
   const { user } = useAuth();
   const {
