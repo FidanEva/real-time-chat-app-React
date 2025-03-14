@@ -1,5 +1,5 @@
 import React from "react";
-import { auth } from "../firebase/auth";
+import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Message as MessageType } from "../types/chat";
 

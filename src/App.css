@@ -117,7 +117,7 @@
 }
 
 .message-gif {
-  @apply fixed right-0 bottom-[60px] m-5 bg-[var(--bg-main)] w-2/5
+  @apply fixed right-0 bottom-[60px] mx-5 my-15 bg-[var(--bg-main)] w-2/5 shadow-lg;
 }
 
 .gif-search-container{

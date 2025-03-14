@@ -1,17 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { searchGifs, getTrendingGifs } from '../services/giphyService';
+import React, { useState, useEffect, useRef, RefObject } from 'react';
+import { searchGifs, getTrendingGifs } from '../services';
 import { Gif } from '../types/giph';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useClickOutside } from '../hooks';
 
-const GifSearch: React.FC<{ onGifSelect: (gif: Gif) => void }> = ({ onGifSelect }) => {
-  const [query, setQuery] = useState<string>('');
+const GifSearch: React.FC<{ 
+  isGifSearchVisible: Boolean;
+  onGifSelect: (gif: Gif) => void; 
+  setGifSearchVisible: (value:boolean) => void;
+  toggleButtonRef: RefObject<HTMLButtonElement | null>;
+}> = ({ isGifSearchVisible, onGifSelect, setGifSearchVisible, toggleButtonRef }) => {
+  const [query, setQuery] = useState<string>("");
   const [gifs, setGifs] = useState<Gif[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const modalRef = useRef<HTMLDivElement>(null);
+  
+  useClickOutside(modalRef as RefObject<HTMLElement>, () => {
+    if(isGifSearchVisible) {
+      setGifSearchVisible(false);
+    }
+  }, toggleButtonRef);
+
   const fetchGifs = async (newPage: number, newQuery?: string) => {
-    console.log("fetch gifs")
     if (loading) return;
     
     setLoading(true);
@@ -72,7 +85,7 @@ const GifSearch: React.FC<{ onGifSelect: (gif: Gif) => void }> = ({ onGifSelect 
   };
 
   return (
-    <div className="message-gif" style={{ height: '400px', overflow: 'hidden' }}>
+    <div className="message-gif" style={{ height: "400px" }} ref={modalRef}>
       <div className="gif-search-container">
         <input
           type="text"

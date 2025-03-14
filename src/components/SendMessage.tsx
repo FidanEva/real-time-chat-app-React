@@ -1,17 +1,18 @@
-import React, { FormEvent, useState } from "react";
-import { useAuth } from "../hooks/useAuth";
-import { ChatService } from "../services/chatService";
+import React, { FormEvent, useState, useRef } from "react";
+import { useAuth, useGifHandler } from "../hooks";
+import { ChatService } from "../services";
 import GifSearch from "./GifSearch";
-import useGifHandler from "../hooks/useGifHandler";
 
-const SendMessage: React.FC<{scroll: React.RefObject<HTMLSpanElement | null>}> = ({ scroll }) => {
+const SendMessage: React.FC<{ scroll: React.RefObject<HTMLSpanElement | null> }> = ({ scroll }) => {
   const [message, setMessage] = useState("");
   const { user } = useAuth();
+  const toggleButtonRef = useRef<HTMLButtonElement>(null);
   const {
     selectedGif,
     isGifSearchVisible,
     handleGifSelect,
     toggleGifSearch,
+    setGifSearchVisible
   } = useGifHandler(user);
 
   const sendMessage = async (event?: FormEvent) => {
@@ -52,10 +53,17 @@ const SendMessage: React.FC<{scroll: React.RefObject<HTMLSpanElement | null>}> =
         onChange={(e) => setMessage(e.target.value)}
       />
       <button type="submit">Send</button>
-      <button type="button" onClick={toggleGifSearch}>
+      <button type="button" ref={toggleButtonRef} onClick={toggleGifSearch}>
         {isGifSearchVisible ? "Hide GIFs" : "Show GIFs"}
       </button>
-      {isGifSearchVisible && <GifSearch onGifSelect={handleGifSelect} />}
+      {isGifSearchVisible && (
+        <GifSearch 
+          isGifSearchVisible={isGifSearchVisible} 
+          onGifSelect={handleGifSelect} 
+          setGifSearchVisible={setGifSearchVisible}
+          toggleButtonRef={toggleButtonRef}
+        />
+      )}
     </form>
   );
 };

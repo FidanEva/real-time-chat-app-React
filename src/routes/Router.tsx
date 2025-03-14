@@ -4,7 +4,7 @@ import { routesConfig } from './RoutesRegistry';
 import { ROUTES } from './config';
 import { AuthGuard } from '../guards/AuthGuard';
 import LoadingSpinner from '../components/LoadingSpinner';
-import { NavigationService } from '../services/navigationService';
+import { NavigationService } from '../services';
 
 export const Router: FC = () => {
   const navigate = useNavigate();

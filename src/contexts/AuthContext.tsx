@@ -7,7 +7,7 @@ import {
   signOut,
   onAuthStateChanged ,
 } from "firebase/auth";
-import { auth } from "../firebase/auth";
+import { auth } from "../firebase";
 
 interface AuthContextProps {
   user: User | null;

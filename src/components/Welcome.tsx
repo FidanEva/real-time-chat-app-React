@@ -1,7 +1,7 @@
 import React from "react";
 import GoogleSignin from "../assets/btn_google_signin_dark_pressed_web.png";
-import { useAuth } from "../hooks/useAuth";
-import { NavigationService } from "../services/navigationService";
+import { useAuth } from "../hooks";
+import { NavigationService } from "../services";
 import { useEffect } from "react";
 
 const Welcome: React.FC = () => {

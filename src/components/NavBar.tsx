@@ -1,6 +1,6 @@
 import React from "react";
-import { useAuth } from "../hooks/useAuth";
-import { NavigationService } from "../services/navigationService";
+import { useAuth } from "../hooks";
+import { NavigationService } from "../services";
 import TheneToggler from "./ThemeToggler";
 
 const NavBar: React.FC = () => {

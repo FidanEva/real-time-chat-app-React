@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Gif } from "../types/giph";
-import { ChatService } from "../services/chatService";
+import { ChatService } from "../services";
 import { User } from "firebase/auth";
 
-const useGifHandler = (user: User | null) => {
+export const useGifHandler = (user: User | null) => {
   const [selectedGif, setSelectedGif] = useState<Gif | null>(null);
   const [isGifSearchVisible, setIsGifSearchVisible] = useState(false);
 
@@ -16,8 +16,12 @@ const useGifHandler = (user: User | null) => {
     setSelectedGif(null);
   };
 
+  const setGifSearchVisible =(value:boolean) => {
+    setIsGifSearchVisible(value);
+  };
+
   const toggleGifSearch = () => {
-    setIsGifSearchVisible(!isGifSearchVisible);
+    setIsGifSearchVisible((prev) => !prev);
   };
 
   const sendGifMessage = async () => {
@@ -48,7 +52,6 @@ const useGifHandler = (user: User | null) => {
     isGifSearchVisible,
     handleGifSelect,
     toggleGifSearch,
+    setGifSearchVisible
   };
 };
-
-export default useGifHandler;
