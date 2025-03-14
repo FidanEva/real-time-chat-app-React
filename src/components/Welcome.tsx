@@ -3,8 +3,10 @@ import GoogleSignin from "../assets/btn_google_signin_dark_pressed_web.png";
 import { useAuth } from "../hooks";
 import { NavigationService } from "../services";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const Welcome: React.FC = () => {
+  const { t } = useTranslation();
   const { signInWithGoogle, isAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -15,7 +17,7 @@ const Welcome: React.FC = () => {
 
   return (
     <main className="welcome">
-      <h2>Welcome to React Chat.</h2>
+      <h2>{t("auth.welcome")}</h2>
       <button className="sign-in" onClick={signInWithGoogle}>
         <img
           src={GoogleSignin}

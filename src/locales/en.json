@@ -1,0 +1,30 @@
+{
+    "languages": {
+        "english": "English",
+        "azerbaijani": "Azerbaijani"
+    },
+    "auth": {
+        "welcome": "Welcome",
+        "signInWithGoogle": "Sign in with Google",
+        "signOut": "Sign out"
+    },
+    "navbar": {
+        "title": "React Chat",
+        "dark": "Dark",
+        "light": "Light",
+        "signOut": "Sign Out"
+    },
+    "general": {
+        "loading": "Loading..."
+    },
+    "chatRoom": {
+        "send": "Send",
+        "messagePlaceholder": "Type message..."
+    },
+    "gifs": {
+        "show": "Show GIFs",
+        "hide": "Hide GIFs",
+        "search": "Search for GIFs",
+        "noAvailable": "No more GIFs available"
+    }
+}

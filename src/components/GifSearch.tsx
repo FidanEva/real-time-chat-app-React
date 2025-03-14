@@ -3,6 +3,7 @@ import { searchGifs, getTrendingGifs } from '../services';
 import { Gif } from '../types/giph';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useClickOutside } from '../hooks';
+import { useTranslation } from 'react-i18next';
 
 const GifSearch: React.FC<{ 
   isGifSearchVisible: Boolean;
@@ -10,6 +11,7 @@ const GifSearch: React.FC<{
   setGifSearchVisible: (value:boolean) => void;
   toggleButtonRef: RefObject<HTMLButtonElement | null>;
 }> = ({ isGifSearchVisible, onGifSelect, setGifSearchVisible, toggleButtonRef }) => {
+
   const [query, setQuery] = useState<string>("");
   const [gifs, setGifs] = useState<Gif[]>([]);
   const [page, setPage] = useState<number>(1);
@@ -17,7 +19,8 @@ const GifSearch: React.FC<{
   const [loading, setLoading] = useState<boolean>(false);
 
   const modalRef = useRef<HTMLDivElement>(null);
-  
+  const { t } = useTranslation();
+
   useClickOutside(modalRef as RefObject<HTMLElement>, () => {
     if(isGifSearchVisible) {
       setGifSearchVisible(false);
@@ -74,7 +77,6 @@ const GifSearch: React.FC<{
   }, []);
 
   const fetchMoreData = () => {
-    console.log("fetchMoreData")
     if (!hasMore || loading) return;
   
     setPage((prevPage) => {
@@ -91,7 +93,7 @@ const GifSearch: React.FC<{
           type="text"
           value={query}
           onChange={handleInputChange}
-          placeholder="Search for GIFs"
+          placeholder={t("gifs.search")}
           className="gif-search-input"
         />
       </div>
@@ -101,8 +103,8 @@ const GifSearch: React.FC<{
           dataLength={gifs.length}
           next={fetchMoreData}
           hasMore={hasMore}
-          loader={<div className="loader">Loading...</div>}
-          endMessage={<p style={{ textAlign: 'center' }}>No more GIFs available</p>}
+          loader={<div className="loader">{t("general.loading")}</div>}
+          endMessage={<p style={{ textAlign: 'center' }}>{t("gifs.noAvailable")}</p>}
           scrollableTarget="gif-scroll-container"
         >
           <div className="gif-grid"  id="gif-scroll-container">

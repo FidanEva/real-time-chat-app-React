@@ -33,6 +33,28 @@
          h-16 fixed left-0 top-0 w-full z-10 shadow-lg;
 }
 
+.language-controller {
+  @apply relative;
+}
+
+.language-select {
+  @apply w-32 p-2 rounded-lg bg-[var(--bg-input)] text-[var(--text-primary)]
+         border-none focus:outline-none focus:ring-2 focus:ring-[var(--primary)]
+         cursor-pointer appearance-none;
+}
+
+.language-option {
+  @apply bg-[var(--bg-main)] text-[var(--text-primary)] hover:bg-[var(--primary-hover)];
+}
+
+.auth-layout .language-controller {
+  @apply absolute top-4 right-4;
+}
+
+.nav-bar .language-controller {
+  @apply flex items-center;
+}
+
 .sign-in {
   @apply border-none bg-transparent;
 }

@@ -1,0 +1,28 @@
+{
+    "languages": {
+        "english": "İngiliscə",
+        "azerbaijani": "Azərbaycanca"
+    },
+    "auth": {
+        "welcome": "Xoş gəlmisiniz",
+        "signInWithGoogle": "Google ilə daxil olun",
+        "signOut": "Çıxış"
+    },
+    "navbar": {
+        "title": "React Söhbət",
+        "dark": "Qaranlıq",
+        "light": "İşıqlı",
+        "signOut": "Çıxış"
+    },
+    "chatRoom": {
+        "send": "Göndər",
+        "messagePlaceholder": "Mesaj yazın..."
+    },
+    "gifs": {
+        "show": "GIF-ləri göstər",
+        "hide": "GIF-ləri gizlət",
+        "search": "GIF-ləri axtar",
+        "noAvailable": "Daha çox GIF yoxdur.",
+        "loading": "Yüklənir..."
+    }
+}

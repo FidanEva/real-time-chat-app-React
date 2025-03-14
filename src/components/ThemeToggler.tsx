@@ -1,7 +1,9 @@
 import React from "react";
 import { useTheme } from "../hooks";
+import { useTranslation } from "react-i18next";
 
 const ThemeToggler: React.FC = () => {
+  const { t } = useTranslation();
   const { isDark, toggleDarkMode } = useTheme();
 
   return (
@@ -13,7 +15,7 @@ const ThemeToggler: React.FC = () => {
                 flex items-center gap-2"
     >
       <span className="text-xl">{isDark ? "🌙" : "☀️"}</span>
-      <span className="text-sm font-medium">{isDark ? "Dark" : "Light"}</span>
+      <span className="text-sm font-medium">{isDark ? t("navbar.dark") : t("navbar.light")}</span>
     </button>
   );
 };

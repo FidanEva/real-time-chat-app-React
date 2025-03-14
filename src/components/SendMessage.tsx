@@ -2,8 +2,11 @@ import React, { FormEvent, useState, useRef } from "react";
 import { useAuth, useGifHandler } from "../hooks";
 import { ChatService } from "../services";
 import GifSearch from "./GifSearch";
+import { useTranslation } from "react-i18next";
 
 const SendMessage: React.FC<{ scroll: React.RefObject<HTMLSpanElement | null> }> = ({ scroll }) => {
+  const { t } = useTranslation();
+
   const [message, setMessage] = useState("");
   const { user } = useAuth();
   const toggleButtonRef = useRef<HTMLButtonElement>(null);
@@ -48,13 +51,13 @@ const SendMessage: React.FC<{ scroll: React.RefObject<HTMLSpanElement | null> }>
         name="messageInput"
         type="text"
         className="form-input__input"
-        placeholder="type message..."
+        placeholder={t("chatRoom.messagePlaceholder")}
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button type="submit">Send</button>
+      <button type="submit">{t("chatRoom.send")}</button>
       <button type="button" ref={toggleButtonRef} onClick={toggleGifSearch}>
-        {isGifSearchVisible ? "Hide GIFs" : "Show GIFs"}
+        {isGifSearchVisible ? t("gifs.hide") : t("gifs.show")}
       </button>
       {isGifSearchVisible && (
         <GifSearch 
