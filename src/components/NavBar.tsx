@@ -17,12 +17,12 @@ const NavBar: React.FC = () => {
   return (
     <nav className="nav-bar">
       <h1>{t("navbar.title")}</h1>
-      <div className="flex gap-5">
+      <div className="flex gap-5 m-2">
         <LanguageController />
+        <TheneToggler />
         <button onClick={handleLogout} className="sign-out" type="button">
           {t("navbar.signOut")}
         </button>
-        <TheneToggler />
       </div>
     </nav>
   );
