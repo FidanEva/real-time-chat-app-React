@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import GoogleSignin from "../assets/btn_google_signin_dark_pressed_web.png";
 import { useAuth } from "../hooks";
 import { NavigationService } from "../services";
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 const Welcome: React.FC = () => {

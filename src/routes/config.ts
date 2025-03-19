@@ -8,15 +8,14 @@ interface RouteConfig {
   children?: RouteConfig[];
 }
 
-// Define route paths as constants
 export const ROUTES = {
   HOME: '/',
   CHAT: '/chat',
   // PROFILE: '/profile',
   // SETTINGS: '/settings',
   AUTH: {
-    LOGIN: '/auth/login',
-    //REGISTER: '/auth/register',
+    LOGIN: '/login',
+    SIGNUP: '/signup',
   },
   ERROR: {
     NOT_FOUND: '/404',

@@ -5,11 +5,13 @@ import { AuthLayout } from '../components/AuthLayout';
 
 const Welcome = lazy(() => import('../components/Welcome'));
 const ChatBox = lazy(() => import('../components/ChatBox'));
+const LogIn = lazy(() => import('../components/LogIn'));
+const SignUp = lazy(() => import('../components/SignUp'));
 
 export const routesConfig = [
   {
     path: ROUTES.HOME,
-    component: Welcome,
+    component: LogIn,
     layout: AuthLayout,
   },
   {
@@ -20,7 +22,12 @@ export const routesConfig = [
   },
   {
     path: ROUTES.AUTH.LOGIN,
-    component: Welcome,
+    component: LogIn,
+    layout: AuthLayout,
+  },
+  {
+    path: ROUTES.AUTH.SIGNUP,
+    component: SignUp,
     layout: AuthLayout,
   },
 ];

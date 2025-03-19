@@ -10,12 +10,13 @@ export class NavigationService {
   static goToHome() {
     this.navigate(ROUTES.HOME);
   }
-  
   static goToChat() {
     this.navigate(ROUTES.CHAT);
   }
-
   static goToLogin() {
     this.navigate(ROUTES.AUTH.LOGIN);
+  }
+  static goToSignUp() {
+    this.navigate(ROUTES.AUTH.SIGNUP);
   }
 }
