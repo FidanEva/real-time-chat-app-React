@@ -1,6 +1,7 @@
-import { collection, addDoc, query, orderBy, onSnapshot, Unsubscribe } from "firebase/firestore";
+import { collection, addDoc, query, orderBy, where, onSnapshot, Unsubscribe } from "firebase/firestore";
 import { db } from "../firebase";
 import { ChatMessage, Message } from "../types/chat";
+import { ChatRoomService } from "./";
 
 const MESSAGES_COLLECTION = "messages";
 
@@ -13,26 +14,39 @@ export class ChatService {
         ...message,
         createdAt: new Date(),
       });
+
+      if (message.text) {
+        await ChatRoomService.updateLastMessage(message.roomId, message.text);
+      }
     } catch (error) {
       console.error('Error sending message:', error);
       throw new Error('Failed to send message');
     }
   }
 
-  static subscribeToMessages(callback: (messages: Message[]) => void): Unsubscribe {
+  static subscribeToMessages(roomId: string, callback: (messages: Message[]) => void): Unsubscribe {
     const q = query(
       this.collectionRef,
-      orderBy("createdAt", "desc"),
+      where("roomId", "==", roomId),
+      orderBy("createdAt", "asc"),
     );
 
-    return onSnapshot(q, (snapshot) => {
-      const messages = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-        createdAt: doc.data().createdAt.toDate(),
-      })) as Message[];
+    return onSnapshot(q, 
+      (snapshot) => {
+        const messages = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+          createdAt: doc.data().createdAt.toDate(),
+        })) as Message[];
 
-      callback(messages.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime()));
-    });
+        callback(messages);
+      },
+      (error) => {
+        console.error('Error in snapshot listener:', error);
+        if (error.code === 'failed-precondition') {
+          console.error('Index is not ready yet. Please wait a few minutes for the index to build.');
+        }
+      }
+    );
   }
 }

@@ -4,7 +4,12 @@ import { ChatService } from "../services";
 import GifSearch from "./GifSearch";
 import { useTranslation } from "react-i18next";
 
-const SendMessage: React.FC<{ scroll: React.RefObject<HTMLSpanElement | null> }> = ({ scroll }) => {
+interface SendMessageProps {
+  scroll: React.RefObject<HTMLSpanElement | null>;
+  roomId: string;
+}
+
+const SendMessage: React.FC<SendMessageProps> = ({ scroll, roomId }) => {
   const { t } = useTranslation();
 
   const [message, setMessage] = useState("");
@@ -16,7 +21,7 @@ const SendMessage: React.FC<{ scroll: React.RefObject<HTMLSpanElement | null> }>
     handleGifSelect,
     toggleGifSearch,
     setGifSearchVisible
-  } = useGifHandler(user);
+  } = useGifHandler({user, roomId});
 
   const sendMessage = async (event?: FormEvent) => {
     if (event) event.preventDefault();
@@ -26,15 +31,14 @@ const SendMessage: React.FC<{ scroll: React.RefObject<HTMLSpanElement | null> }>
     }
 
     try {
-      if (!selectedGif) {
-        await ChatService.sendMessage({
-          type: 'text',
-          text: message.trim(),
-          name: user.displayName,
-          avatar: user.photoURL,
-          uid: user.uid,
-        });
-      }
+      await ChatService.sendMessage({
+        type: 'text',
+        text: message.trim(),
+        name: user.displayName,
+        avatar: user.photoURL,
+        uid: user.uid,
+        roomId,
+      });
       setMessage("");
     } catch (error) {
       console.error("Error sending message:", error);

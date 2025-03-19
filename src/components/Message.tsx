@@ -2,6 +2,7 @@ import React from "react";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Message as MessageType } from "../types/chat";
+import { formatMessageTime } from "../utils/dateUtils";
 
 const Message: React.FC<{ message: MessageType }> = ({ message }) => {
   const [user] = useAuthState(auth);
@@ -25,6 +26,7 @@ const Message: React.FC<{ message: MessageType }> = ({ message }) => {
         ) : (
           <p className="user-message">{message.text}</p>
         )}
+        <span className="message-time">{formatMessageTime(message.createdAt)}</span>
       </div>
     </div>
   );

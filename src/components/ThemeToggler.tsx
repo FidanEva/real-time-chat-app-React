@@ -14,8 +14,8 @@ const ThemeToggler: React.FC = () => {
                 hover:bg-[var(--primary)] hover:text-white
                 flex items-center gap-2"
     >
-      <span className="text-xl">{isDark ? "🌙" : "☀️"}</span>
-      <span className="text-sm font-medium">{isDark ? t("navbar.dark") : t("navbar.light")}</span>
+      <span className="text-xl">{!isDark ? "🌙" : "☀️"}</span>
+      <span className="text-sm font-medium">{!isDark ? t("navbar.dark") : t("navbar.light")}</span>
     </button>
   );
 };

@@ -8,6 +8,7 @@ import {
   onAuthStateChanged ,
 } from "firebase/auth";
 import { auth } from "../firebase";
+import { UserService } from "../services";
 
 interface AuthContextProps {
   user: User | null;
@@ -45,6 +46,9 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({ children }) => {
 
   const logout = async () => {
     try {
+      if (user) {
+        await UserService.updateUserStatus(user.uid, 'offline');
+      }
       await signOut(auth);
       setUser(null);
     } catch (err) {
@@ -53,8 +57,22 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
+      if (user) {
+        try {
+          await UserService.createOrUpdateUser({
+            uid: user.uid,
+            email: user.email || '',
+            displayName: user.displayName || 'Anonymous',
+            photoURL: user.photoURL || '',
+            status: 'online',
+            lastSeen: new Date(),
+          });
+        } catch (error) {
+          console.error('Error updating user in Firestore:', error);
+        }
+      }
       setLoading(false);
       setError(null);
     }, (err) => {
@@ -62,7 +80,9 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({ children }) => {
       setLoading(false);
     });
     
-    return unsubscribe;
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return (

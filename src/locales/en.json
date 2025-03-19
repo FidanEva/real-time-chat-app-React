@@ -8,6 +8,10 @@
         "signInWithGoogle": "Sign in with Google",
         "signOut": "Sign out"
     },
+    "user": {
+        "search": "Search by email",
+        "noUsersFound": "No user found"
+    },
     "navbar": {
         "title": "React Chat",
         "dark": "Dark",
@@ -19,12 +23,19 @@
     },
     "chatRoom": {
         "send": "Send",
-        "messagePlaceholder": "Type message..."
+        "messagePlaceholder": "Type message...",
+        "selectChat": "Select a chat",
+        "startNewChat": "Start new conversation"
     },
     "gifs": {
         "show": "Show GIFs",
         "hide": "Hide GIFs",
         "search": "Search for GIFs",
         "noAvailable": "No more GIFs available"
+    },
+    "time": {
+        "minutesAgo": "minutes ago",
+        "hoursAgo" : "hour ago",
+        "daysAgo" : "days ago"
     }
 }

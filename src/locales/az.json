@@ -8,6 +8,10 @@
         "signInWithGoogle": "Google ilə daxil olun",
         "signOut": "Çıxış"
     },
+    "user": {
+        "search": "E-poçt axtar",
+        "noUsersFound": "Heç bir istifadəçi tapılmadı"
+    },
     "navbar": {
         "title": "React Söhbət",
         "dark": "Qaranlıq",
@@ -16,7 +20,9 @@
     },
     "chatRoom": {
         "send": "Göndər",
-        "messagePlaceholder": "Mesaj yazın..."
+        "messagePlaceholder": "Mesaj yazın...",
+        "selectChat": "Çat seçin",
+        "startNewChat": "Yeni söhbət başlat"
     },
     "gifs": {
         "show": "GIF-ləri göstər",
@@ -24,5 +30,10 @@
         "search": "GIF-ləri axtar",
         "noAvailable": "Daha çox GIF yoxdur.",
         "loading": "Yüklənir..."
+    },
+    "time": {
+    "minutesAgo": "dəqiqə əvvəl",
+    "hoursAgo": "saat əvvəl",
+    "daysAgo": "gün əvvəl"
     }
 }

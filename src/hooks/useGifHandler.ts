@@ -3,7 +3,12 @@ import { Gif } from "../types/giph";
 import { ChatService } from "../services";
 import { User } from "firebase/auth";
 
-export const useGifHandler = (user: User | null) => {
+interface UseGifHandlerProps {
+  user: User | null;
+  roomId?: string;
+}
+
+export const useGifHandler = ({ user, roomId }: UseGifHandlerProps) => {
   const [selectedGif, setSelectedGif] = useState<Gif | null>(null);
   const [isGifSearchVisible, setIsGifSearchVisible] = useState(false);
 
@@ -16,7 +21,7 @@ export const useGifHandler = (user: User | null) => {
     setSelectedGif(null);
   };
 
-  const setGifSearchVisible =(value:boolean) => {
+  const setGifSearchVisible = (value: boolean) => {
     setIsGifSearchVisible(value);
   };
 
@@ -25,7 +30,7 @@ export const useGifHandler = (user: User | null) => {
   };
 
   const sendGifMessage = async () => {
-    if (!selectedGif || !user) return;
+    if (!selectedGif || !user || !roomId) return;
 
     try {
       await ChatService.sendMessage({
@@ -34,6 +39,7 @@ export const useGifHandler = (user: User | null) => {
         name: user.displayName,
         avatar: user.photoURL,
         uid: user.uid,
+        roomId,
       });
       handleGifSent();
     } catch (error) {
@@ -42,10 +48,10 @@ export const useGifHandler = (user: User | null) => {
   };
 
   useEffect(() => {
-    if (selectedGif) {
+    if (selectedGif && roomId) {
       sendGifMessage();
     }
-  }, [selectedGif]);
+  }, [selectedGif, roomId]);
 
   return {
     selectedGif,
